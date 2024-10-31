@@ -21,15 +21,15 @@
         "data": [
         
         { "row": 1, 
-        "seat": 1 
+        "seat": 4 
         },
     
          { "row": 2,
-          "seat": 2 
+          "seat": 4 
         },
     
          { "row": 3,
-          "seat": 3 
+          "seat": 4
         }]
     },
 
