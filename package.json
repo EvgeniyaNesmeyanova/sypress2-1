@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "test:petstore":"npx cypress run --record --key 381a9cbb-85b4-48f9-9902-4318463b47aa --spec cypress/e2e/petstore.cy.js --group pet --ci-build-id 10",
-    "test:movie":"npx cypress run --record --key 381a9cbb-85b4-48f9-9902-4318463b47aa --spec cypress/e2e/movie.cy.js --group cinema --ci-build-id 10",
+    "test:petstore":"npx cypress run --record --key 381a9cbb-85b4-48f9-9902-4318463b47aa --spec cypress/e2e/petstore.cy.js --group pet --ci-build-id 12",
+    "test:movie":"npx cypress run --record --key 381a9cbb-85b4-48f9-9902-4318463b47aa --spec cypress/e2e/movie.cy.js --group cinema --ci-build-id 12",
     "test:all":"npm run test:petstore & npm run test:movie"
   },
   "dependencies": {

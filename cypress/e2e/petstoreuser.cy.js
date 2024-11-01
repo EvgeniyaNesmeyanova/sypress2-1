@@ -1,82 +1,48 @@
-//const { expect } = require("chai")
 
-describe ('Питомцы', () => {
+const newUser = require('../fixtures/newUser.json');
+const updateUser = require('../fixtures/updateUser.json')
+
+
+describe ('API-test user', () => {
 
  
-    it('Создание пользователя', () => {
-
-      const newID='100500'
-      const newname="Ivan"
-      
-      
-      cy.request ('POST', 'https://petstore.swagger.io/v2/user', {
-        "id": newID,
-        "username": newname,
-        "firstName": "Иван",
-        "lastName": "Иванов",
-        "email": "ivan@email",
-        "password": "1234",
-        "phone": "5662214",
-        "userStatus": 0  
-    }).then((response)=>{
-      
-      expect(response.status).eq(200);
-      cy.log(response.body.username)
-      cy.log(response.id)
-      
-      //expect(response.body.id).eq(newID)
-
-
-  //     cy.request ('https://petstore.swagger.io/v2/pet/' + newID).then((res)=>{
-  //      expect(res.status).eq(200);
-  //      expect(res.body.id).eq(newID)
-  //      cy.log(response.body.name)
-  //     }) 
-
-
-  //     cy.request ('PUT', 'https://petstore.swagger.io/v2/pet', {
-  //       "id": newID,
-  //       "category": {
-  //         "id": 0,
-  //         "name": "string"
-  //       },
-  //       "name": newname,
-  //       "photoUrls": [
-  //         "string"
-  //       ],
-  //       "tags": [
-  //         {
-  //           "id": 0,
-  //           "name": "string"
-  //         }
-  //       ],
-  //       "status": "available"
-  //     }).then((response)=>{
-  //           cy.log(response)
-  //           expect(response.status).eq(200);
-  //           expect(response.body.name).eq(newname)
-  //           expect(response.body.id).eq(newID)
-  //           cy.log(response.body.name)
-  //     })
-
-
-  //     cy.request ('DELETE','https://petstore.swagger.io/v2/pet/' + newID).then((res)=>{
-  //       expect(res.status).eq(200);
-        
-  //      }) 
-
-
-
-  //     cy.request ({
-  //       url: 'https://petstore.swagger.io/v2/pet/' + newID, failOnStatusCode: false
-
-  //     }).then((res)=>{
-  //       expect(res.status).eq(404)
-  //     }) 
-
- })
-
-
+  it('создание пользователя', () => {
+    cy.request('POST', 'https://petstore.swagger.io/v2/pet', newUser).then((response) => { 
+    expect(response.status).to.equal(200);
+    // cy.log(response.body.id);
+    // cy.log(newUser.id);
+    expect(response.body.id).equal(newUser.id)
+    });
+    });
+    
+    it('получение имени пользователя', () => {
+    cy.request('GET', '/Petr98').then((response) => {
+    expect(response.status).to.equal(200);
+    //cy.log(response.body.username);
+    });
     })
-
- })
+    
+    it('изменение имени пользователя', () => {
+    cy.request('GET', '/login?username=Petr98&password=1111',
+    ).then((response) => {
+    expect(response.status).to.equal(200);
+    cy.request('PUT', '/Petr98', updateUser).then((response) => {
+    expect(response.status).to.equal(200);
+    });
+    cy.request('GET', '/Petr908').then((response) => {
+    expect(response.status).to.equal(200);
+    });
+    });
+    });
+    
+    it('удалить пользователя по имени', () => {
+    cy.request('DELETE', 'user/Petr908').then((response) => {
+    expect(response.status).to.equal(200);
+    });
+    cy.request({ method: 'GET', url: 'user/Petr908', failOnStatusCode: false }).then(
+    (response) => {
+    expect(response.status).to.equal(200);
+    });
+    })
+    
+  })
